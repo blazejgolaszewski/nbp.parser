@@ -13,7 +13,7 @@ public class ParameterParser {
 	private Date endDate;
 	
 	private final String regexCurrency = "\\S{3}";
-	private final String regexStringDate = "\\d{8}";
+	private final String regexStringDate = "\\d{4}-\\d{2}-\\d{2}";
 	
 	public void setCurrencyParameter(String currency) {
 		this.currencyParameter = currency.toUpperCase();
@@ -39,12 +39,12 @@ public class ParameterParser {
 		return endDate;
 	}
 	
-	public void parse() throws Exception {
+	public void parse() throws ParseException {
 		if(parseCurrency()){
 			currency = currencyParameter;
 		}
 		else{
-			throw new Exception("Not a proper currency parameter");
+			throw new ParseException("Couldn't parse currency", 0);
 		}
 		
 		startDate = parseDate(startDateParameter);
@@ -57,8 +57,10 @@ public class ParameterParser {
 	
 	private Date parseDate(String date) throws ParseException{
 		if(date.matches(regexStringDate)){
-			return new SimpleDateFormat("YYYY-MM-DD").parse(startDateParameter);
+			return new SimpleDateFormat("yyyy-MM-DD").parse(date);
 		}
-		return null;
+		else{
+			throw new ParseException("Couldn't parse date", 0);
+		}
 	}
 }
