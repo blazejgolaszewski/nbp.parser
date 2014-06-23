@@ -8,9 +8,8 @@ public class MainClass
 {
     public static void main( String[] args )
     {
-        if(args.length == 0){
-        	// TODO - add proper help function
-        	System.out.println("Help function");
+        if(args.length == 0 || args.length < 3){
+        	usage();
         }
         else{
         	ParameterParser parser = new ParameterParser();
@@ -32,5 +31,9 @@ public class MainClass
         		System.out.println(ex.getMessage());
         	}
         }
+    }
+    
+    private static void usage(){
+    	System.out.println("Usage eg.: java pl.parser.nbp.MainClass EUR 2013-01-28 2013-01-31");
     }
 }
