@@ -1,5 +1,6 @@
 package pl.parser.nbp;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -20,7 +21,7 @@ public class NbpParser {
 		courses = parser.getCurrencyDataBetweenDates(startDate, endDate, currency);
 	}
 	
-	public double getAvgCurrencyPrice() throws Exception{
+	public BigDecimal getAvgCurrencyBuyPrice() throws Exception{
 		if(courses == null){
 			throw new Exception("loadData() has not been run");
 		}
@@ -30,12 +31,24 @@ public class NbpParser {
 			courseSum += course.getBuyCourse();
 		}
 		
-		return courseSum/courses.size();
+		return new BigDecimal(courseSum/courses.size()).setScale(4, BigDecimal.ROUND_HALF_UP);
 	}
 	
-	public double getStandardDeviation(){
-		// TODO
+	public BigDecimal getStandardDeviation(){
+		double varianceSum = 0.0;
+		double sellCourseSum = 0.0;
+		double mean = 0.0;
 		
-		return 0.0;
+		for(CurrencyCourse course : courses){
+			sellCourseSum += course.getSellCourse();
+		}
+		
+		mean = sellCourseSum / courses.size();
+		
+		for(CurrencyCourse course : courses){
+			varianceSum += Math.pow(course.getSellCourse() - mean,2);
+		}
+		
+		return new BigDecimal(Math.sqrt(varianceSum/courses.size())).setScale(4, BigDecimal.ROUND_HALF_UP);
 	}
 }

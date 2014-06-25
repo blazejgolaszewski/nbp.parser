@@ -29,7 +29,7 @@ public class NbpXmlDataParser {
 		List<CurrencyCourse> courses = new ArrayList<CurrencyCourse>();
 		DateTime currentDay = start;
 		
-		while(currentDay.isEqual(end)){
+		while(!currentDay.isEqual(end.plusDays(1))){
 			String xmlFileName = getNbpCurrencyCourseFilename(currentDay);
 			
 			try{
@@ -70,7 +70,7 @@ public class NbpXmlDataParser {
 					course.setDate(courseDate);
 					course.setBuyCourse(format.parse(elem.elementText("kurs_kupna")).doubleValue());
 					course.setSellCourse(format.parse(elem.elementText("kurs_sprzedazy")).doubleValue());
-					
+					log.debug(course.getSellCourse());
 					return course;	
 				}
 			}

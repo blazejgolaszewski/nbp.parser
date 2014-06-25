@@ -1,5 +1,7 @@
 package pl.parser.nbp;
 
+import java.math.BigDecimal;
+
 /**
  * Hello world!
  *
@@ -26,7 +28,7 @@ public class MainClass
         		
         		nbpParser.loadData(new NbpXmlDataParser());
         		
-        		System.out.println(nbpParser.getAvgCurrencyPrice());
+        		System.out.println(nbpParser.getAvgCurrencyBuyPrice());
         		System.out.println(nbpParser.getStandardDeviation());
         	}
         	catch(Exception ex){
