@@ -24,6 +24,8 @@ public class MainClass
         											parser.getStartDate(),
         											parser.getEndDate());
         		
+        		nbpParser.loadData(new NbpXmlDataParser());
+        		
         		System.out.println(nbpParser.getAvgCurrencyPrice());
         		System.out.println(nbpParser.getStandardDeviation());
         	}

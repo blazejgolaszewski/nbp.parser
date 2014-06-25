@@ -2,15 +2,16 @@ package pl.parser.nbp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import org.joda.time.DateTime;
 
 public class ParameterParser {
 	private String currencyParameter;
 	private String startDateParameter;
 	private String endDateParameter;
 	private String currency;
-	private Date startDate;
-	private Date endDate;
+	private DateTime startDate;
+	private DateTime endDate;
 	
 	private final String regexCurrency = "\\S{3}";
 	private final String regexStringDate = "\\d{4}-\\d{2}-\\d{2}";
@@ -31,11 +32,11 @@ public class ParameterParser {
 		return currency;
 	}
 	
-	public Date getStartDate() {
+	public DateTime getStartDate() {
 		return startDate;
 	}
 	
-	public Date getEndDate() {
+	public DateTime getEndDate() {
 		return endDate;
 	}
 	
@@ -55,9 +56,9 @@ public class ParameterParser {
 		return currencyParameter.matches(regexCurrency);
 	}
 	
-	private Date parseDate(String date) throws ParseException{
+	private DateTime parseDate(String date) throws ParseException{
 		if(date.matches(regexStringDate)){
-			return new SimpleDateFormat("yyyy-MM-DD").parse(date);
+			return new DateTime(new SimpleDateFormat("yyyy-MM-DD").parse(date));
 		}
 		else{
 			throw new ParseException("Couldn't parse date", 0);
