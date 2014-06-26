@@ -1,11 +1,5 @@
 package pl.parser.nbp;
 
-import java.math.BigDecimal;
-
-/**
- * Hello world!
- *
- */
 public class MainClass 
 {
     public static void main( String[] args )
